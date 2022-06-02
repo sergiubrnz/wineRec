@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
+import 'package:wine_rec/ui/navigation/bottom_navigator.dart';
 import 'package:wine_rec/ui/screens/login_screen/signup_screen.dart';
 
 import '../../../firebase/auth_methods.dart';
@@ -42,6 +43,17 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = false;
     });
+
+    if (res == 'success') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return BottomNavigator();
+          },
+        ),
+      );
+    }
   }
 
   @override
