@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204203928031",
+    "project_id": "winerecs-d0f6d",
+    "storage_bucket": "winerecs-d0f6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204203928031:android:488d70ead97d246ea9bc6a",
+        "android_client_info": {
+          "package_name": "com.example.wine_rec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204203928031-dv5stf6a7bs6skuom5l6ih1l1h9vm6jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzkJeToVLnV-N6hlL7o52INx5hgsVmfHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204203928031-dv5stf6a7bs6skuom5l6ih1l1h9vm6jv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
