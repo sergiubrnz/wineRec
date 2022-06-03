@@ -19,6 +19,7 @@ dependencies:
   firebase_storage: ^10.2.8
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,15 @@ flutter:
 
   assets:
     - assets/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 400
+        - asset: fonts/Roboto-Light.ttf
+          weight: 200
+    - family: AdobeGaramond
+      fonts:
+        - asset: fonts/AGaramondPro-Italic.otf

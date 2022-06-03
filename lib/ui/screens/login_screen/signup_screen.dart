@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
-import 'package:wine_rec/ui/screens/login_screen/login_screen.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../../firebase/auth_methods.dart';
@@ -42,18 +41,14 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = false;
     });
 
-    if (res != 'success') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(res),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Succes'),
-        ),
-      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(res),
+      ),
+    );
+
+    if (res == 'success') {
+      Navigator.pop(context);
     }
   }
 
@@ -145,14 +140,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LoginScreen();
-                            },
-                          ),
-                        );
+                        Navigator.pop(context);
                       },
                       child: Container(
                         child: const Text(

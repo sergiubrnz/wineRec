@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Wine Rec',
       theme: ThemeData(
+        fontFamily: 'Roboto',
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wine_rec/utils/Storage/user_preferences.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -54,8 +55,23 @@ class AuthMethods {
 
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
-        await _auth.signInWithEmailAndPassword(
+        var response = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
+        await _firestore
+            .collection('users')
+            .doc(response.user?.uid)
+            .get()
+            .then((value) async => {
+                  print(value.data().toString()),
+                  await SecureStorage.setEmail(
+                      value.data()!['email'].toString()),
+                  await SecureStorage.setUserName(
+                      value.data()!['prenume'].toString()),
+                });
+        final email1 = await SecureStorage.getEmail();
+        print(email1);
+        print(response);
+
         res = "success";
       } else {
         res = "Please enter all the fields";
