@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wine_rec/utils/Storage/user_preferences.dart';
+
+import '../utils/pick_image.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,6 +16,7 @@ class AuthMethods {
     required String password,
     required String username,
     required String surname,
+    required Uint8List file,
   }) async {
     String res = "Some error occurred";
     try {
@@ -19,7 +24,7 @@ class AuthMethods {
               password.isNotEmpty ||
               username.isNotEmpty ||
               surname.isNotEmpty
-          // || file != null
+          //|| file != null
           ) {
         // register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
@@ -29,6 +34,9 @@ class AuthMethods {
 
         print(cred.user!.uid);
 
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
+
         await _firestore.collection('users').doc(cred.user!.uid).set({
           'nume': username,
           'prenume': surname,
@@ -36,11 +44,13 @@ class AuthMethods {
           'email': email,
           'collections': [],
           'likes': [],
+          'photoUrl': photoUrl,
         });
 
         res = "success";
       }
     } catch (err) {
+      print(err);
       res = err.toString();
     }
     return res;

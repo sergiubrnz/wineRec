@@ -21,6 +21,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_secure_storage: ^5.0.2
   animated_splash_screen: ^1.2.0
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:

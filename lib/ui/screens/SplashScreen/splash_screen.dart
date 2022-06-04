@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void getIsLoggedIn() async {
     final isLogged = await SecureStorage.getKeepMeAuthenticated();
     setState(() {
-      isLoggedIn = isLogged == 'true';
+      isLoggedIn = isLogged == 'tru';
     });
   }
 
