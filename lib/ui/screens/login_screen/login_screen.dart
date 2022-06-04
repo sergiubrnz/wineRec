@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
 import 'package:wine_rec/ui/navigation/bottom_navigator.dart';
 import 'package:wine_rec/ui/screens/login_screen/signup_screen.dart';
+import 'package:wine_rec/utils/Storage/user_preferences.dart';
 
 import '../../../firebase/auth_methods.dart';
 import '../../../utils/colours.dart';
@@ -18,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _permanentLogIn = false;
 
   @override
   void dispose() {
@@ -45,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (res == 'success') {
+      await SecureStorage.setKeepMeAuthenticated(_permanentLogIn);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -110,8 +113,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Checkbox(
                         activeColor: kPrimaryColor,
-                        value: false,
-                        onChanged: (bool? value) {},
+                        value: _permanentLogIn,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _permanentLogIn = value!;
+                          });
+                        },
                       ),
                       const SizedBox(
                         width: 9,

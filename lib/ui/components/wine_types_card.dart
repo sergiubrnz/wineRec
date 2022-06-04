@@ -12,7 +12,7 @@ class WineTypesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 170,
       height: 100,
       child: Card(
         elevation: 2,
@@ -29,7 +29,9 @@ class WineTypesCard extends StatelessWidget {
                 fit: BoxFit.scaleDown,
               ),
             ),
-            Text(denumire),
+            Text(
+              denumire,
+            ),
           ],
         ),
       ),

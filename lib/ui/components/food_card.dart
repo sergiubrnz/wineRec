@@ -13,7 +13,7 @@ class FoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 170,
       height: 100,
       child: Card(
         elevation: 2,
@@ -21,11 +21,18 @@ class FoodCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
-              width: 90,
-              height: 90,
-              fit: BoxFit.scaleDown,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(
+                  image,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
             ),
             Text(denumire),
           ],

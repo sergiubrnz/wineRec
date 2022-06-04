@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wine_rec/utils/colours.dart';
 
 class GrapesCard extends StatelessWidget {
   late final String denumire;
@@ -10,10 +11,22 @@ class GrapesCard extends StatelessWidget {
     required this.color,
   });
 
+  Color getColor() {
+    Color widgetColor = Colors.red.withOpacity(0.2);
+    if (color == 'red') {
+      widgetColor = kRedWine.withOpacity(0.4);
+    } else if (color == 'white') {
+      widgetColor = kWhiteWine.withOpacity(0.4);
+    } else if (color == 'rose') {
+      widgetColor = kRoseWine.withOpacity(0.4);
+    }
+    return widgetColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 90,
+      width: 80,
       height: 100,
       child: Card(
         elevation: 2,
@@ -38,7 +51,7 @@ class GrapesCard extends StatelessWidget {
                   height: 30,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.2),
+                        color: getColor(),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                   ),
                 ),
@@ -47,6 +60,7 @@ class GrapesCard extends StatelessWidget {
             Text(
               denumire,
               textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13),
             ),
           ],
         ),
