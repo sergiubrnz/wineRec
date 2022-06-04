@@ -59,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
       email: _emailController.text,
       password: _passwordController.text,
       username: _usernameController.text,
-      surname: _usernameController.text,
+      surname: _surnameController.text,
       file: _image!,
     );
 

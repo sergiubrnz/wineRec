@@ -62,6 +62,19 @@ class SecureStorage {
     );
   }
 
+  static Future<void> setUserImage(String value) async {
+    await storage.write(
+      key: kUserImage,
+      value: value,
+    );
+  }
+
+  static Future<String?> getUserImage() async {
+    return await storage.read(
+      key: kUserImage,
+    );
+  }
+
   static Future<void> deleteAllData() async {
     await storage.deleteAll();
   }

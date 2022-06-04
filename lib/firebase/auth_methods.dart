@@ -77,13 +77,10 @@ class AuthMethods {
                       value.data()!['email'].toString()),
                   await SecureStorage.setUserName(
                       value.data()!['prenume'].toString()),
-                  await SecureStorage.setUID(
-                    value.data()!['uid'].toString(),
-                  ),
+                  await SecureStorage.setUID(value.data()!['uid'].toString()),
+                  await SecureStorage.setUserImage(
+                      value.data()!['photoUrl'].toString()),
                 });
-        final email1 = await SecureStorage.getEmail();
-        print(email1);
-        print(response);
 
         res = "success";
       } else {

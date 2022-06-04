@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wine_rec/ui/components/profile_card.dart';
 import 'package:wine_rec/utils/colours.dart';
+
+import '../../../utils/Storage/user_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,6 +13,27 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  var name = '';
+  var imageUrl = '';
+
+  void getData() async {
+    final nume = await SecureStorage.getUserName();
+    final image = await SecureStorage.getUserImage();
+    print(image);
+    setState(() {
+      name = nume!;
+      imageUrl = image!;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      getData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +44,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         automaticallyImplyLeading: false,
         title: Text("Setari"),
       ),
-      body: Center(
-        child: Text('SETTINGS'),
+      body: ProfileCard(
+        name: name,
+        imageUrl: imageUrl,
       ),
     );
   }
