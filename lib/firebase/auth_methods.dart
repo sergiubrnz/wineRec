@@ -67,6 +67,9 @@ class AuthMethods {
                       value.data()!['email'].toString()),
                   await SecureStorage.setUserName(
                       value.data()!['prenume'].toString()),
+                  await SecureStorage.setUID(
+                    value.data()!['uid'].toString(),
+                  ),
                 });
         final email1 = await SecureStorage.getEmail();
         print(email1);

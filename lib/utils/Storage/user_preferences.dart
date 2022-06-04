@@ -49,6 +49,19 @@ class SecureStorage {
     );
   }
 
+  static Future<void> setUID(String value) async {
+    await storage.write(
+      key: kUID,
+      value: value,
+    );
+  }
+
+  static Future<String?> getUID() async {
+    return await storage.read(
+      key: kUID,
+    );
+  }
+
   static Future<void> deleteAllData() async {
     await storage.deleteAll();
   }
