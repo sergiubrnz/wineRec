@@ -11,10 +11,10 @@ List<WineTypeModel> listaTipuriVin = [
 ];
 
 List<FoodModel> listaMancaruri = [
+  FoodModel(image: "assets/vegetables.png", name: 'Legume', key: 'vegetables'),
+  FoodModel(image: "assets/fish.png", name: 'Peste', key: 'fish'),
   FoodModel(image: "assets/beef.png", name: 'Vita', key: 'beef'),
   FoodModel(image: "assets/chicken.png", name: 'Pasare', key: 'poultry'),
-  FoodModel(image: "assets/fish.png", name: 'Peste', key: 'fish'),
-  FoodModel(image: "assets/vegetables.png", name: 'Legume', key: 'vegetables'),
   FoodModel(image: "assets/pasta.png", name: 'Italian', key: 'italian'),
   FoodModel(image: "assets/sushi.png", name: 'Japanese', key: 'japanese'),
 ];
