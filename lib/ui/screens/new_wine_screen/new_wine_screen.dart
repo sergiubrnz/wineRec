@@ -3,12 +3,15 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wine_rec/firebase/save_wine_methods.dart';
 import 'package:wine_rec/utils/colours.dart';
 import 'package:wine_rec/utils/constants.dart';
 
+import '../../../utils/Storage/user_preferences.dart';
 import '../../../utils/pick_image.dart';
+import '../../blocs/firebase_bloc/firebase_lists_bloc.dart';
 import '../../components/InputTextFieldWidget.dart';
 
 class NewWineScreen extends StatefulWidget {
@@ -69,6 +72,10 @@ class _NewWineScreenState extends State<NewWineScreen> {
       year: int.parse(_controllerAn.text),
       file: _image!,
     );
+
+    final basketBloc = context.read<FirebaseListsBloc>();
+    final userID = await SecureStorage.getUID();
+    basketBloc.add(GetFirebaseLists(userID!));
 
     setState(() {
       _isLoading = false;
