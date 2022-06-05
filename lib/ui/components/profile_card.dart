@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/ui/components/settings_widget_card.dart';
 import 'package:wine_rec/ui/screens/login_screen/login_screen.dart';
 import 'package:wine_rec/utils/Storage/user_preferences.dart';
 import 'package:wine_rec/utils/colours.dart';
+
+import '../blocs/firebase_bloc/firebase_lists_bloc.dart';
 
 class ProfileCard extends StatelessWidget {
   void logoutUser() async {
@@ -54,7 +56,7 @@ class ProfileCard extends StatelessWidget {
                           children: [
                             Text(
                               name!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: kPrimaryColor,
@@ -75,29 +77,62 @@ class ProfileCard extends StatelessWidget {
                             SettingsWidgetCard(
                               text: 'Editare cont ',
                               rightIcon: IconButton(
-                                icon: Icon(Icons.arrow_forward_ios_outlined),
+                                icon: const Icon(
+                                    Icons.arrow_forward_ios_outlined),
                                 onPressed: () => {},
                               ),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            SettingsWidgetCard(
-                              text: 'Colectia mea ',
-                              rightIcon: IconButton(
-                                icon: Text('0'),
-                                onPressed: () => {},
-                              ),
+                            BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                print(state.toString());
+                                if (state is ListsLoaded) {
+                                  return SettingsWidgetCard(
+                                    text: 'Colectia mea ',
+                                    rightIcon: IconButton(
+                                      icon: Text(
+                                          state.collection.length.toString()),
+                                      onPressed: () => {},
+                                    ),
+                                  );
+                                } else {
+                                  return SettingsWidgetCard(
+                                    text: 'Colectia mea ',
+                                    rightIcon: IconButton(
+                                      icon: const Text('0'),
+                                      onPressed: () => {},
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            SettingsWidgetCard(
-                              text: 'Aprecierile mele ',
-                              rightIcon: IconButton(
-                                icon: Text('0'),
-                                onPressed: () => {},
-                              ),
+                            BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                if (state is ListsLoaded) {
+                                  return SettingsWidgetCard(
+                                    text: 'Aprecierile mele ',
+                                    rightIcon: IconButton(
+                                      icon: Text(state.likes.length.toString()),
+                                      onPressed: () => {},
+                                    ),
+                                  );
+                                } else {
+                                  return SettingsWidgetCard(
+                                    text: 'Aprecierile mele ',
+                                    rightIcon: IconButton(
+                                      icon: const Text('0'),
+                                      onPressed: () => {},
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -106,7 +141,7 @@ class ProfileCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   width: 120,
                   height: 120,
                   child: CircleAvatar(
@@ -135,7 +170,8 @@ class ProfileCard extends StatelessWidget {
                   logoutUser();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
                       (Route<dynamic> route) => false);
                 },
               ),
