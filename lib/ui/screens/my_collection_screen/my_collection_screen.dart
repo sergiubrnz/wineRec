@@ -198,7 +198,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
                                 'Pretul estimat al colectiei: ${totalPrice.toStringAsFixed(2)} \$',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'AdobeGaramond',
                                     color: kPrimaryColor),
