@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 class InputTextFieldWidget extends StatefulWidget {
-  const InputTextFieldWidget(
-      {Key? key,
-      required this.hintText,
-      required this.textInputType,
-      required this.icon,
-      required this.isPass,
-      required this.textEditingController})
-      : super(key: key);
+  const InputTextFieldWidget({
+    Key? key,
+    required this.hintText,
+    required this.textInputType,
+    required this.icon,
+    required this.isPass,
+    required this.textEditingController,
+  }) : super(key: key);
   final String hintText;
   final TextInputType textInputType;
   final IconData icon;
@@ -49,6 +49,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
           controller: widget.textEditingController,
           obscureText: isVisible,
           cursorColor: kPrimaryColor,
+          keyboardType: widget.textInputType,
           decoration: InputDecoration(
             icon: Icon(
               widget.icon,

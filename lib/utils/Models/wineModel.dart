@@ -1,20 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WineModel {
-  String name;
+  String denumire;
   int year;
-  String type;
+  String tip;
+  String culoare;
+  String photoUrl;
+  double pret;
+  String sort;
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'denumire': denumire,
       'year': year,
-      'type': type,
+      'tip': tip,
+      'culoare': culoare,
+      'pret': pret,
+      'sort': sort,
+      'photoUrl': photoUrl,
     };
   }
 
   WineModel.fromSnapshot(DocumentSnapshot snapshot)
-      : name = snapshot['name'],
+      : denumire = snapshot['denumire'],
         year = snapshot['year'],
-        type = snapshot['type'];
+        tip = snapshot['tip'],
+        culoare = snapshot['culoare'],
+        pret = snapshot['pret'],
+        sort = snapshot['sort'],
+        photoUrl = snapshot['photoUrl'];
 }
