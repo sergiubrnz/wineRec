@@ -17,7 +17,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color(0xFFEBEBEB),
+        backgroundColor: const Color(0xFFEBEBEB),
         appBar: AppBar(
           backgroundColor: Colors.white,
           foregroundColor: kPrimaryColor,
@@ -102,14 +102,14 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                   children: [
                                     Text(
                                       widget.wine!.year.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         color: kPrimaryColor,
                                       ),
                                     ),
                                     Text(
                                       '${widget.wine!.pret.toStringAsFixed(2)} \$',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         color: kPrimaryColor,
                                       ),
@@ -125,7 +125,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                   ),
                   Card(
                     child: Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       width: 150,
                       height: 150,
                       child: AspectRatio(
