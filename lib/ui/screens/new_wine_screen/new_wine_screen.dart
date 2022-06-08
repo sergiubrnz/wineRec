@@ -102,161 +102,181 @@ class _NewWineScreenState extends State<NewWineScreen> {
         elevation: 0,
         title: Text("Mărește-ți colecția"),
       ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: [
-                      _image != null
-                          ? Image(
-                              image: MemoryImage(_image!),
-                              height: size.height * 0.2,
-                            )
-                          : Image.asset(
-                              'assets/wineBottle.jpeg',
-                              height: size.height * 0.2,
+      body: Stack(children: [
+        SafeArea(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      children: [
+                        _image != null
+                            ? Image(
+                                image: MemoryImage(_image!),
+                                height: size.height * 0.2,
+                              )
+                            : Image.asset(
+                                'assets/wineBottle.jpeg',
+                                height: size.height * 0.2,
+                              ),
+                        Positioned(
+                          bottom: 0,
+                          left: (size.width * 0.5),
+                          child: IconButton(
+                            onPressed: () {
+                              selectImage();
+                            },
+                            icon: const Icon(
+                              Icons.add_a_photo,
+                              color: Colors.white,
                             ),
-                      Positioned(
-                        bottom: 0,
-                        left: (size.width * 0.5),
-                        child: IconButton(
-                          onPressed: () {
-                            selectImage();
-                          },
-                          icon: const Icon(
-                            Icons.add_a_photo,
-                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  InputTextFieldWidget(
+                    hintText: 'Denumire',
+                    textInputType: TextInputType.text,
+                    icon: Icons.wine_bar_outlined,
+                    textEditingController: _controllerDenumire,
+                    isPass: false,
+                  ),
+
+                  InputTextFieldWidget(
+                    hintText: 'An producere',
+                    textInputType: TextInputType.number,
+                    textEditingController: _controllerAn,
+                    icon: Icons.calendar_today_outlined,
+                    isPass: false,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        width: size.width * 0.38,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: kPrimaryColor,
+                          ),
+                          color: kPrimaryLightColor,
+                          borderRadius: BorderRadius.circular(29),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: ColorDropdownvalue,
+                            isExpanded: true,
+                            items: kWineColors.map((String items) {
+                              return DropdownMenuItem(
+                                  value: items, child: Text(items));
+                            }).toList(),
+                            onChanged: (string) => {
+                              setState(() {
+                                ColorDropdownvalue = string.toString();
+                              }),
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.04,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        width: size.width * 0.38,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: kPrimaryColor,
+                          ),
+                          color: kPrimaryLightColor,
+                          borderRadius: BorderRadius.circular(29),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: TypeDropdownvalue,
+                            isExpanded: true,
+                            items: kWineTypes.map((String items) {
+                              return DropdownMenuItem(
+                                  value: items, child: Text(items));
+                            }).toList(),
+                            onChanged: (string) => {
+                              setState(() {
+                                TypeDropdownvalue = string.toString();
+                              }),
+                            },
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                InputTextFieldWidget(
-                  hintText: 'Denumire',
-                  textInputType: TextInputType.text,
-                  icon: Icons.wine_bar_outlined,
-                  textEditingController: _controllerDenumire,
-                  isPass: false,
-                ),
-
-                InputTextFieldWidget(
-                  hintText: 'An producere',
-                  textInputType: TextInputType.number,
-                  textEditingController: _controllerAn,
-                  icon: Icons.calendar_today_outlined,
-                  isPass: false,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      width: size.width * 0.38,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: kPrimaryColor,
-                        ),
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(29),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: ColorDropdownvalue,
-                          isExpanded: true,
-                          items: kWineColors.map((String items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items));
-                          }).toList(),
-                          onChanged: (string) => {
-                            setState(() {
-                              ColorDropdownvalue = string.toString();
-                            }),
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.04,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      width: size.width * 0.38,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: kPrimaryColor,
-                        ),
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(29),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: TypeDropdownvalue,
-                          isExpanded: true,
-                          items: kWineTypes.map((String items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items));
-                          }).toList(),
-                          onChanged: (string) => {
-                            setState(() {
-                              TypeDropdownvalue = string.toString();
-                            }),
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                InputTextFieldWidget(
-                  hintText: 'Sort',
-                  textInputType: TextInputType.text,
-                  textEditingController: _controllerSort,
-                  icon: Icons.wine_bar_sharp,
-                  isPass: false,
-                ),
-                InputTextFieldWidget(
-                  hintText: 'Pret',
-                  textInputType: TextInputType.number,
-                  textEditingController: _controllerPret,
-                  icon: Icons.attach_money,
-                  isPass: false,
-                ),
-                // button login
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0))),
-                      backgroundColor: MaterialStateProperty.all(kPrimaryColor),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent),
-                    ),
-                    child: const Text(
-                      "Adauga",
-                    ),
-                    onPressed: addWine,
+                  InputTextFieldWidget(
+                    hintText: 'Sort',
+                    textInputType: TextInputType.text,
+                    textEditingController: _controllerSort,
+                    icon: Icons.wine_bar_sharp,
+                    isPass: false,
                   ),
-                ),
-                // Transitioning to signing up
-              ],
+                  InputTextFieldWidget(
+                    hintText: 'Pret',
+                    textInputType: TextInputType.number,
+                    textEditingController: _controllerPret,
+                    icon: Icons.attach_money,
+                    isPass: false,
+                  ),
+                  // button login
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0))),
+                        backgroundColor:
+                            MaterialStateProperty.all(kPrimaryColor),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
+                      child: const Text(
+                        "Adauga",
+                      ),
+                      onPressed: addWine,
+                    ),
+                  ),
+                  // Transitioning to signing up
+                ],
+              ),
             ),
           ),
         ),
-      ),
+        _isLoading
+            ? Container(
+                height: size.height,
+                width: size.width,
+                color: Colors.transparent,
+                child: const Center(
+                  child: SizedBox(
+                    height: 60.0,
+                    width: 60.0,
+                    child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(kPrimaryColor),
+                        strokeWidth: 5.0),
+                  ),
+                ),
+              )
+            : Container()
+      ]),
     );
   }
 }
