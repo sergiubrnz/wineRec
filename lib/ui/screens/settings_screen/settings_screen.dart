@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/ui/components/profile_card.dart';
 import 'package:wine_rec/utils/colours.dart';
 
+import '../../../firebase/user_methods.dart';
 import '../../../utils/Storage/user_preferences.dart';
 import '../../blocs/firebase_bloc/firebase_lists_bloc.dart';
 
@@ -17,19 +18,25 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   var name = '';
   var imageUrl = '';
-  var uid = '';
+  bool _isLoading = false;
 
   void getData() async {
-    final nume = await SecureStorage.getUserName();
-    final image = await SecureStorage.getUserImage();
-    final userID = await SecureStorage.getUID();
-    print(image);
     setState(() {
-      name = nume!;
-      imageUrl = image!;
-      uid = userID!;
+      _isLoading = true;
     });
-    await getLists(context, userID!);
+    final userID = await SecureStorage.getUID();
+
+    var res = (await UserMethods().getUserInfo(
+      uid: userID!,
+    ));
+
+    var lists = await getLists(context, userID);
+
+    setState(() {
+      name = res!['prenume'];
+      imageUrl = res['photoUrl'];
+      _isLoading = false;
+    });
   }
 
   @override
@@ -42,6 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -50,12 +58,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
         automaticallyImplyLeading: false,
         title: Text("Setari"),
       ),
-      body: ProfileCard(
-        name: name,
-        imageUrl: imageUrl.isEmpty
-            ? 'https://firebasestorage.googleapis.com/v0/b/winerecs-d0f6d.appspot.com/o/profilePics%2FrzrbTG1yaoeKdFeJIWJMHKDkxcv2?alt=media&token=e7abc1df-596b-462b-b3be-94c45e63e265'
-            : imageUrl,
-      ),
+      body: Stack(children: [
+        ProfileCard(
+          name: name,
+          imageUrl: imageUrl.isEmpty
+              ? 'https://firebasestorage.googleapis.com/v0/b/winerecs-d0f6d.appspot.com/o/profilePics%2FrzrbTG1yaoeKdFeJIWJMHKDkxcv2?alt=media&token=e7abc1df-596b-462b-b3be-94c45e63e265'
+              : imageUrl,
+        ),
+        _isLoading
+            ? Container(
+                height: size.height,
+                width: size.width,
+                color: Colors.transparent,
+                child: const Center(
+                  child: SizedBox(
+                    height: 60.0,
+                    width: 60.0,
+                    child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(kPrimaryColor),
+                        strokeWidth: 5.0),
+                  ),
+                ),
+              )
+            : Container(),
+      ]),
     );
   }
 
