@@ -76,7 +76,6 @@ class DataMethods {
                             },
                           ),
                     },
-                  print(wineList.length),
                 });
         await response;
         res = "success";

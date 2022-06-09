@@ -86,7 +86,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
               totalSwitches: 2,
               labels: const ['Colecția mea', 'Aprecierile mele'],
               radiusStyle: true,
-              onToggle: (index) {
+              onToggle: (index) async {
                 setState(() {
                   if (labelIndex == 0) {
                     labelIndex = 1;
@@ -94,6 +94,10 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                     labelIndex = 0;
                   }
                 });
+
+                final basketBloc = context.read<FirebaseListsBloc>();
+                final userID = await SecureStorage.getUID();
+                basketBloc.add(GetFirebaseLists(userID!));
               },
             ),
             Expanded(

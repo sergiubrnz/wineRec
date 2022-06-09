@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../utils/Storage/user_preferences.dart';
-import '../utils/pick_image.dart';
 
 class SaveWineMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,8 +28,13 @@ class SaveWineMethods {
           sort.isNotEmpty ||
           culoare.isNotEmpty ||
           pret.isFinite) {
-        String photoUrl = await StorageMethods()
-            .uploadImageToStorage('winePics', file, false);
+        var photo = await FirebaseStorage.instance
+            .ref()
+            .child('/winePics/${DateTime.now().millisecondsSinceEpoch}');
+
+        final uploadTask = photo.putData(file);
+        final snapshot = await uploadTask.whenComplete(() => {});
+        final photoUrl = await snapshot.ref.getDownloadURL();
 
         final userID = await SecureStorage.getUID();
 
@@ -46,6 +51,30 @@ class SaveWineMethods {
         await _firestore.collection('users').doc(userID).update(
           {
             "collections": FieldValue.arrayUnion([wineId]),
+          },
+        );
+        res = "success";
+      }
+    } catch (err) {
+      print(err);
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> SaveWineToFavourites({
+    required String id,
+  }) async {
+    String res = "Some error occurred";
+    try {
+      if (id.isNotEmpty) {
+        final userID = await SecureStorage.getUID();
+
+        var wineId = await _firestore.doc(id).get();
+
+        await _firestore.collection('users').doc(userID).update(
+          {
+            "likes": FieldValue.arrayUnion([wineId.reference]),
           },
         );
         res = "success";

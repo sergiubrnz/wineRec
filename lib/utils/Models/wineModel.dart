@@ -8,6 +8,7 @@ class WineModel {
   String photoUrl;
   double pret;
   String sort;
+  String id;
 
   Map<String, dynamic> toJson() {
     return {
@@ -18,6 +19,7 @@ class WineModel {
       'pret': pret,
       'sort': sort,
       'photoUrl': photoUrl,
+      'id': id,
     };
   }
 
@@ -28,5 +30,6 @@ class WineModel {
         culoare = snapshot['culoare'],
         pret = snapshot['pret'],
         sort = snapshot['sort'],
-        photoUrl = snapshot['photoUrl'];
+        photoUrl = snapshot['photoUrl'],
+        id = snapshot.id;
 }

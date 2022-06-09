@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Wine Rec',
         theme: ThemeData(
           fontFamily: 'Roboto',
