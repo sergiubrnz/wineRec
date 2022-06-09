@@ -10,11 +10,13 @@ class InputTextFieldWidget extends StatefulWidget {
     required this.icon,
     required this.isPass,
     required this.textEditingController,
+    this.isEnabled = true,
   }) : super(key: key);
   final String hintText;
   final TextInputType textInputType;
   final IconData icon;
   final bool isPass;
+  final bool isEnabled;
   final TextEditingController textEditingController;
 
   @override
@@ -48,6 +50,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
         child: TextField(
           controller: widget.textEditingController,
           obscureText: isVisible,
+          enabled: widget.isEnabled,
           cursorColor: kPrimaryColor,
           keyboardType: widget.textInputType,
           decoration: InputDecoration(

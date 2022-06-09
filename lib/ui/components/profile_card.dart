@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/ui/components/settings_widget_card.dart';
 import 'package:wine_rec/ui/screens/login_screen/login_screen.dart';
+import 'package:wine_rec/ui/screens/profile_screen/profile_screen.dart';
 import 'package:wine_rec/utils/Storage/user_preferences.dart';
 import 'package:wine_rec/utils/colours.dart';
 
@@ -79,7 +80,16 @@ class ProfileCard extends StatelessWidget {
                               rightIcon: IconButton(
                                 icon: const Icon(
                                     Icons.arrow_forward_ios_outlined),
-                                onPressed: () => {},
+                                onPressed: () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const ProfileScreen();
+                                      },
+                                    ),
+                                  )
+                                },
                               ),
                             ),
                             const SizedBox(
