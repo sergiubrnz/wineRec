@@ -4,6 +4,7 @@ import 'package:wine_rec/ui/components/food_card.dart';
 import 'package:wine_rec/ui/components/grapes_card.dart';
 import 'package:wine_rec/ui/components/wine_types_card.dart';
 import 'package:wine_rec/ui/components/year_card.dart';
+import 'package:wine_rec/ui/screens/wine_listing_screen/wine_listing_creen.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../../utils/Storage/dashboardLists.dart';
@@ -110,7 +111,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return WineListingScreen(
+                                  searchType: 'color',
+                                  searchParam: listaTipuriVin[index].key,
+                                );
+                              },
+                            ),
+                          );
+                        },
                         child: WineTypesCard(
                           denumire: listaTipuriVin[index].type,
                           image: listaTipuriVin[index].image,
@@ -142,7 +155,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return WineListingScreen(
+                                  searchType: 'sort',
+                                  searchParam: listaStruguri[index].key,
+                                );
+                              },
+                            ),
+                          );
+                        },
                         child: GrapesCard(
                           denumire: listaStruguri[index].name,
                           color: listaStruguri[index].color,
@@ -174,7 +199,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return WineListingScreen(
+                                  searchType: 'food',
+                                  searchParam: listaMancaruri[index].key,
+                                );
+                              },
+                            ),
+                          );
+                        },
                         child: FoodCard(
                           denumire: listaMancaruri[index].name,
                           image: listaMancaruri[index].image,
@@ -206,7 +243,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return WineListingScreen(
+                                  searchType: 'year',
+                                  searchParam: listaAni[index].toString(),
+                                );
+                              },
+                            ),
+                          );
+                        },
                         child: YearCard(
                           year: listaAni[index].toString(),
                         ),

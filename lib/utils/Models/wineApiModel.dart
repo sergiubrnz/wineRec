@@ -160,9 +160,9 @@ class Vintage {
   String seoName;
   String name;
   Statistics statistics;
-  Image image;
+  ApiImage image;
   Wine wine;
-  int year;
+  String year;
   dynamic grapes;
   bool hasValidRatings;
 
@@ -182,16 +182,16 @@ class Vintage {
         seoName: json["seo_name"],
         name: json["name"],
         statistics: Statistics.fromJson(json["statistics"]),
-        image: Image.fromJson(json["image"]),
+        image: ApiImage.fromJson(json["image"]),
         wine: Wine.fromJson(json["wine"]),
-        year: json["year"],
+        year: json["year"].toString(),
         grapes: json["grapes"],
         hasValidRatings: json["has_valid_ratings"],
       );
 }
 
-class Image {
-  Image({
+class ApiImage {
+  ApiImage({
     required this.location,
     required this.variations,
   });
@@ -206,7 +206,7 @@ class Image {
     };
   }
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ApiImage.fromJson(Map<String, dynamic> json) => ApiImage(
         location: json["location"],
         variations: ImageVariations.fromJson(json["variations"]),
       );
@@ -214,60 +214,24 @@ class Image {
 
 class ImageVariations {
   ImageVariations({
-    required this.bottleLarge,
-    required this.bottleMedium,
-    required this.bottleMediumSquare,
-    required this.bottleSmall,
-    required this.bottleSmallSquare,
-    required this.label,
-    required this.labelLarge,
-    required this.labelMedium,
-    required this.labelMediumSquare,
-    required this.labelSmallSquare,
-    required this.large,
+    required this.medium_square,
     required this.medium,
-    required this.mediumSquare,
-    required this.smallSquare,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'label': label,
-      'variations': bottleMediumSquare,
+      'medium': medium,
+      'medium_square': medium_square,
     };
   }
 
-  String bottleLarge;
-  String bottleMedium;
-  String bottleMediumSquare;
-  String bottleSmall;
-  String bottleSmallSquare;
-  String label;
-  String labelLarge;
-  String labelMedium;
-  String labelMediumSquare;
-  String labelSmallSquare;
-  String large;
+  String medium_square;
   String medium;
-  String mediumSquare;
-  String smallSquare;
 
   factory ImageVariations.fromJson(Map<String, dynamic> json) =>
       ImageVariations(
-        bottleLarge: json["bottle_large"],
-        bottleMedium: json["bottle_medium"],
-        bottleMediumSquare: json["bottle_medium_square"],
-        bottleSmall: json["bottle_small"],
-        bottleSmallSquare: json["bottle_small_square"],
-        label: json["label"],
-        labelLarge: json["label_large"],
-        labelMedium: json["label_medium"],
-        labelMediumSquare: json["label_medium_square"],
-        labelSmallSquare: json["label_small_square"],
-        large: json["large"],
+        medium_square: json["medium_square"],
         medium: json["medium"],
-        mediumSquare: json["medium_square"],
-        smallSquare: json["small_square"],
       );
 }
 
@@ -382,7 +346,7 @@ class Country {
     required this.name,
     required this.nativeName,
     required this.seoName,
-    required this.currency,
+    //required this.currency,
     required this.regionsCount,
     required this.usersCount,
     required this.winesCount,
@@ -393,7 +357,7 @@ class Country {
   String name;
   String nativeName;
   String seoName;
-  Currency currency;
+  //Currency currency;
   int regionsCount;
   int usersCount;
   int winesCount;
@@ -411,7 +375,7 @@ class Country {
         name: json["name"],
         nativeName: json["native_name"],
         seoName: json["seo_name"],
-        currency: Currency.fromJson(json["currency"]),
+        //currency: Currency.fromJson(json["currency"]),
         regionsCount: json["regions_count"],
         usersCount: json["users_count"],
         winesCount: json["wines_count"],

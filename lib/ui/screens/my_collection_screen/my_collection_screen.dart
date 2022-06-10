@@ -6,7 +6,6 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:wine_rec/ui/components/wine_card.dart';
 import 'package:wine_rec/ui/screens/new_wine_screen/new_wine_screen.dart';
 import 'package:wine_rec/utils/Models/wineModel.dart';
-import 'package:wine_rec/utils/networking/api_networking.dart';
 
 import '../../../utils/Storage/user_preferences.dart';
 import '../../../utils/colours.dart';
@@ -30,9 +29,6 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
       uid = userID!;
     });
     await getLists(context, userID!);
-
-    var Vintages = await ApiService().getWines();
-    print(Vintages.toJson());
   }
 
   @override
