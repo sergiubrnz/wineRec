@@ -30,8 +30,19 @@ class _WineListingCardState extends State<WineListingCard> {
     setState(() {
       _isLoading = true;
     });
-    String res = await SaveWineMethods()
-        .SaveWineToFavourites(id: '/wines/${widget.wine!.vintage.id}');
+    String res = await SaveWineMethods().SaveNewWineToFavourites(
+      tip: '',
+      culoare: widget.wine!.vintage.wine.typeId == 1
+          ? 'Rosu'
+          : (widget.wine!.vintage.wine.typeId == 2
+              ? 'Alb'
+              : (widget.wine!.vintage.wine.typeId == 4 ? 'Rose' : 'Spumant')),
+      denumire: widget.wine!.vintage.wine.name,
+      sort: '',
+      year: int.parse(widget.wine!.vintage.year),
+      pret: widget.wine!.price.amount,
+      photoUrl: 'https:${widget.wine!.vintage.image.variations.medium_square}',
+    );
 
     // setState(() {
     //   _isLoading = false;

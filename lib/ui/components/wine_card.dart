@@ -128,7 +128,7 @@ class _WineCardState extends State<WineCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(widget.wine!.year.toString()),
-                            Text('${widget.wine!.pret.toString()} \$'),
+                            Text('${widget.wine!.pret?.toStringAsFixed(2)} \$'),
                           ],
                         ),
                       ),

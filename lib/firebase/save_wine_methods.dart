@@ -10,7 +10,6 @@ class SaveWineMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // sign up user
   Future<String> SaveWine({
     required String denumire,
     required int year,
@@ -79,6 +78,42 @@ class SaveWineMethods {
         );
         res = "success";
       }
+    } catch (err) {
+      print(err);
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> SaveNewWineToFavourites({
+    required String denumire,
+    required int year,
+    required String tip,
+    required String culoare,
+    required double pret,
+    required String sort,
+    required String photoUrl,
+  }) async {
+    String res = "Some error occurred";
+    try {
+      final userID = await SecureStorage.getUID();
+
+      var wineId = await _firestore.collection('wines').add({
+        'denumire': denumire,
+        'year': year,
+        'tip': tip,
+        'culoare': culoare,
+        'pret': pret,
+        'sort': sort,
+        'photoUrl': photoUrl,
+      });
+
+      await _firestore.collection('users').doc(userID).update(
+        {
+          "likes": FieldValue.arrayUnion([wineId]),
+        },
+      );
+      res = "success";
     } catch (err) {
       print(err);
       res = err.toString();
