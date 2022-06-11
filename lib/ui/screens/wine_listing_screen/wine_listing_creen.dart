@@ -7,14 +7,16 @@ import '../../../utils/colours.dart';
 import '../../../utils/networking/api_networking.dart';
 
 class WineListingScreen extends StatefulWidget {
-  const WineListingScreen({
+  WineListingScreen({
     Key? key,
     this.searchParam,
     this.searchType,
+    required this.title,
   }) : super(key: key);
 
   final String? searchType;
   final String? searchParam;
+  final String title;
 
   @override
   State<WineListingScreen> createState() => _WineListingScreenState();
@@ -56,7 +58,7 @@ class _WineListingScreenState extends State<WineListingScreen> {
         backgroundColor: Colors.white,
         foregroundColor: kPrimaryColor,
         elevation: 0,
-        title: const Text("Lista vinuri"),
+        title: Text(widget.title),
       ),
       body: Stack(children: [
         Container(

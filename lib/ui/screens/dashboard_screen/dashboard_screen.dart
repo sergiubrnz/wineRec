@@ -119,6 +119,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 return WineListingScreen(
                                   searchType: 'color',
                                   searchParam: listaTipuriVin[index].key,
+                                  title: listaTipuriVin[index].type,
                                 );
                               },
                             ),
@@ -163,6 +164,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 return WineListingScreen(
                                   searchType: 'sort',
                                   searchParam: listaStruguri[index].key,
+                                  title: listaStruguri[index].name,
                                 );
                               },
                             ),
@@ -207,6 +209,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 return WineListingScreen(
                                   searchType: 'food',
                                   searchParam: listaMancaruri[index].key,
+                                  title: listaMancaruri[index].name,
                                 );
                               },
                             ),
@@ -251,6 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 return WineListingScreen(
                                   searchType: 'year',
                                   searchParam: listaAni[index].toString(),
+                                  title: listaAni[index].toString(),
                                 );
                               },
                             ),
