@@ -1,14 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WineModel {
-  String denumire;
-  int year;
-  String tip;
-  String culoare;
-  String photoUrl;
-  double pret;
-  String sort;
-  String id;
+  String? denumire;
+  int? year;
+  String? tip;
+  String? culoare;
+  String? photoUrl;
+  double? pret;
+  String? sort;
+  String? id;
+
+  WineModel(String denumire, int year, String tip, String culoare,
+      String photoUrl, double pret, String sort, String id) {
+    this.denumire = denumire;
+    this.year = year;
+    this.photoUrl = photoUrl;
+    this.pret = pret;
+    this.culoare = culoare;
+    this.sort = sort;
+    this.tip = tip;
+    this.id = id;
+  }
 
   Map<String, dynamic> toJson() {
     return {

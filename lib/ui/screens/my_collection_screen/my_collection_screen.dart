@@ -199,7 +199,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                       if (state is ListsLoaded) {
                         totalPrice = 0;
                         for (WineModel wine in state.collection) {
-                          totalPrice += wine.pret;
+                          totalPrice += wine.pret!;
                         }
                       }
                     },

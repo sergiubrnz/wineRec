@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/ui/blocs/firebase_bloc/firebase_lists_bloc.dart';
 import 'package:wine_rec/ui/components/heart_animation_widget.dart';
 import 'package:wine_rec/utils/Models/wineApiModel.dart';
+import 'package:wine_rec/utils/Models/wineModel.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../firebase/save_wine_methods.dart';
+import '../screens/wine_details_screen/wine_details_screen.dart';
 
 class WineListingCard extends StatefulWidget {
   final Match? wine;
@@ -54,18 +56,33 @@ class _WineListingCardState extends State<WineListingCard> {
                   print(existingItem),
                 }
             },
-            // onTap: () => {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) {
-            //         return WineDetailsScreen(
-            //           wine: widget.wine,
-            //         );
-            //       },
-            //     ),
-            //   )
-            // },
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WineDetailsScreen(
+                      wine: WineModel(
+                        widget.wine!.vintage.wine.name,
+                        int.parse(widget.wine!.vintage.year),
+                        'Sec',
+                        widget.wine!.vintage.wine.typeId == 1
+                            ? 'Rosu'
+                            : (widget.wine!.vintage.wine.typeId == 2
+                                ? 'Alb'
+                                : (widget.wine!.vintage.wine.typeId == 4
+                                    ? 'Rose'
+                                    : 'Spumant')),
+                        'https:${widget.wine!.vintage.image.variations.medium_square}',
+                        widget.wine!.price.amount,
+                        widget.wine!.vintage.grapes ?? ' - ',
+                        DateTime.now().millisecondsSinceEpoch.toString(),
+                      ),
+                    );
+                  },
+                ),
+              )
+            },
             child: SafeArea(
               child: Card(
                 child: Column(

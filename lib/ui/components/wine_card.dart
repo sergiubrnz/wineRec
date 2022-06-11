@@ -81,7 +81,7 @@ class _WineCardState extends State<WineCard> {
                                 Radius.circular(10),
                               ),
                               child: Image.network(
-                                widget.wine!.photoUrl,
+                                widget.wine!.photoUrl!,
                                 height: 80,
                               ),
                             ),
@@ -109,7 +109,7 @@ class _WineCardState extends State<WineCard> {
                     ),
                     Expanded(
                       child: Text(
-                        widget.wine!.denumire,
+                        widget.wine!.denumire!,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: kPrimaryColor,

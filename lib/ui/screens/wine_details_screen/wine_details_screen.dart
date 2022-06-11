@@ -53,7 +53,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    widget.wine!.denumire,
+                                    widget.wine!.denumire!,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '${widget.wine!.pret.toStringAsFixed(2)} \$',
+                                      '${widget.wine!.pret!.toStringAsFixed(2)} \$',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: kPrimaryColor,
@@ -131,7 +131,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                       child: AspectRatio(
                         aspectRatio: 1 / 1,
                         child: Image.network(
-                          widget.wine!.photoUrl,
+                          widget.wine!.photoUrl!,
                           fit: BoxFit.cover,
                         ),
                       ),
