@@ -50,6 +50,32 @@ class DeleteWineMethods {
     return res;
   }
 
+  Future<String> DeleteWineFromLikes({
+    required String id,
+  }) async {
+    String res = "Some error occurred";
+    try {
+      if (id.isNotEmpty) {
+        final userID = await SecureStorage.getUID();
+
+        var wineId = await _firestore.collection('wines').doc(id);
+
+        print('ID: ${wineId}');
+
+        await _firestore.collection('users').doc(userID).update(
+          {
+            "likes": FieldValue.arrayRemove([wineId]),
+          },
+        );
+        res = "success";
+      }
+    } catch (err) {
+      print(err);
+      res = err.toString();
+    }
+    return res;
+  }
+
   Future<String> SaveNewWineToFavourites({
     required String denumire,
     required int year,

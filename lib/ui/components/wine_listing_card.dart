@@ -63,7 +63,9 @@ class _WineListingCardState extends State<WineListingCard> {
         var likedWine = false;
         if (state is ListsLoaded) {
           likedWine = state.likes.any(
-            (Wine) => Wine.denumire == widget.wine!.vintage.wine.name,
+            (Wine) =>
+                Wine.denumire == widget.wine!.vintage.wine.name &&
+                Wine.year == int.parse(widget.wine!.vintage.year),
           );
         }
         return Stack(children: [
@@ -99,7 +101,7 @@ class _WineListingCardState extends State<WineListingCard> {
                         'https:${widget.wine!.vintage.image.variations.medium_square}',
                         widget.wine!.price.amount,
                         widget.wine!.vintage.grapes ?? ' - ',
-                        DateTime.now().millisecondsSinceEpoch.toString(),
+                        '',
                       ),
                     );
                   },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/firebase/delete_wine_methods.dart';
 
+import '../../../firebase/save_wine_methods.dart';
 import '../../../utils/Models/wineModel.dart';
 import '../../../utils/Storage/user_preferences.dart';
 import '../../../utils/colours.dart';
@@ -34,7 +35,23 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.pop(context);
+  }
+
+  void deleteWineFromLikes(bool fromFirebase) async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res =
+        await DeleteWineMethods().DeleteWineFromLikes(id: widget.wine!.id!);
+
+    final userID = await SecureStorage.getUID();
+    await getLists(context, userID!);
+
+    if (fromFirebase) deleteWine();
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void deleteWine() async {
@@ -50,6 +67,35 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void addWine() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await SaveWineMethods()
+        .SaveWineToFavourites(id: '/wines/${widget.wine!.id}');
+
+    final userID = await SecureStorage.getUID();
+    await getLists(context, userID!);
+  }
+
+  void addNewWine() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await SaveWineMethods().SaveNewWineToFavourites(
+      tip: widget.wine!.tip!,
+      culoare: widget.wine!.culoare!,
+      denumire: widget.wine!.denumire!,
+      sort: widget.wine!.sort!,
+      year: widget.wine!.year!,
+      pret: widget.wine!.pret!,
+      photoUrl: widget.wine!.photoUrl!,
+    );
+
+    final userID = await SecureStorage.getUID();
+    await getLists(context, userID!);
   }
 
   int getLists(BuildContext context, String userId) {
@@ -68,6 +114,57 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
           foregroundColor: kPrimaryColor,
           elevation: 0,
           title: const Text("Despre vin"),
+          actions: [
+            widget.wine!.id!.isNotEmpty
+                ? BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
+                    builder: (context, state) {
+                      var likedWine = false;
+                      var collectionWine = true;
+                      if (state is ListsLoaded) {
+                        likedWine = state.likes.any(
+                          (Wine) =>
+                              Wine.denumire == widget.wine!.denumire &&
+                              Wine.year == widget.wine!.year,
+                        );
+                        collectionWine = state.collection.any(
+                          (Wine) =>
+                              Wine.denumire == widget.wine!.denumire &&
+                              Wine.year == widget.wine!.year,
+                        );
+                      }
+                      ;
+                      if (likedWine) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: IconButton(
+                            onPressed: () =>
+                                {deleteWineFromLikes(!collectionWine)},
+                            icon: const Icon(Icons.favorite),
+                          ),
+                        );
+                      } else {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: IconButton(
+                            onPressed: () => {
+                              if (!likedWine || collectionWine)
+                                {
+                                  addNewWine(),
+                                }
+                              else
+                                {
+                                  addWine,
+                                }
+                            },
+                            icon: const Icon(Icons.favorite_border),
+                          ),
+                        );
+                      }
+                    },
+                    listener: (context, state) {},
+                  )
+                : Container(),
+          ],
         ),
         body: Center(
           heightFactor: 1,
