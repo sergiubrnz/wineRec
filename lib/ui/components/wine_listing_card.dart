@@ -8,6 +8,7 @@ import 'package:wine_rec/utils/Models/wineModel.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../firebase/save_wine_methods.dart';
+import '../../utils/Storage/user_preferences.dart';
 import '../screens/wine_details_screen/wine_details_screen.dart';
 
 class WineListingCard extends StatefulWidget {
@@ -44,9 +45,14 @@ class _WineListingCardState extends State<WineListingCard> {
       photoUrl: 'https:${widget.wine!.vintage.image.variations.medium_square}',
     );
 
-    // setState(() {
-    //   _isLoading = false;
-    // });
+    final userID = await SecureStorage.getUID();
+    await getLists(context, userID!);
+  }
+
+  int getLists(BuildContext context, String userId) {
+    final basketBloc = context.read<FirebaseListsBloc>();
+    basketBloc.add(GetFirebaseLists(userId));
+    return 1;
   }
 
   @override
@@ -54,6 +60,12 @@ class _WineListingCardState extends State<WineListingCard> {
     return BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
       listener: (context, state) {},
       builder: (context, state) {
+        var likedWine = false;
+        if (state is ListsLoaded) {
+          likedWine = state.likes.any(
+            (Wine) => Wine.denumire == widget.wine!.vintage.wine.name,
+          );
+        }
         return Stack(children: [
           GestureDetector(
             onDoubleTap: () => {
@@ -156,6 +168,13 @@ class _WineListingCardState extends State<WineListingCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(widget.wine!.vintage.year.toString()),
+                            likedWine
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: kPrimaryColor,
+                                    size: 18,
+                                  )
+                                : Container(),
                             Text(
                                 '${widget.wine!.price.amount.toStringAsFixed(2)} \$'),
                           ],

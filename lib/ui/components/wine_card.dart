@@ -8,6 +8,7 @@ import 'package:wine_rec/utils/Models/wineModel.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../firebase/save_wine_methods.dart';
+import '../../utils/Storage/user_preferences.dart';
 
 class WineCard extends StatefulWidget {
   final WineModel? wine;
@@ -32,16 +33,33 @@ class _WineCardState extends State<WineCard> {
     String res = await SaveWineMethods()
         .SaveWineToFavourites(id: '/wines/${widget.wine!.id}');
 
-    // setState(() {
-    //   _isLoading = false;
-    // });
+    final userID = await SecureStorage.getUID();
+    await getLists(context, userID!);
+  }
+
+  int getLists(BuildContext context, String userId) {
+    final basketBloc = context.read<FirebaseListsBloc>();
+    basketBloc.add(GetFirebaseLists(userId));
+    return 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ListsLoaded) {
+          existingItem = state.likes.any(
+            (likedWine) => likedWine.denumire == widget.wine!.denumire,
+          );
+        }
+      },
       builder: (context, state) {
+        var likedWine = false;
+        if (state is ListsLoaded) {
+          likedWine = state.likes.any(
+            (Wine) => Wine.denumire == widget.wine!.denumire,
+          );
+        }
         return Stack(children: [
           GestureDetector(
             onDoubleTap: () => {
@@ -128,6 +146,13 @@ class _WineCardState extends State<WineCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(widget.wine!.year.toString()),
+                            likedWine
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: kPrimaryColor,
+                                    size: 18,
+                                  )
+                                : Container(),
                             Text('${widget.wine!.pret?.toStringAsFixed(2)} \$'),
                           ],
                         ),
