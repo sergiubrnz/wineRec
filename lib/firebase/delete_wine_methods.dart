@@ -1,57 +1,22 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../utils/Storage/user_preferences.dart';
 
-class SaveWineMethods {
+class DeleteWineMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<String> SaveWine({
-    required String denumire,
-    required int year,
-    required String tip,
-    required String culoare,
-    required double pret,
-    required String sort,
-    required Uint8List file,
+  Future<String> DeleteWine({
+    required String id,
+    required String photoUrl,
   }) async {
     String res = "Some error occurred";
     try {
-      if (denumire.isNotEmpty ||
-          year.isFinite ||
-          tip.isNotEmpty ||
-          sort.isNotEmpty ||
-          culoare.isNotEmpty ||
-          pret.isFinite) {
-        var photo = await FirebaseStorage.instance
-            .ref()
-            .child('/winePics/${DateTime.now().millisecondsSinceEpoch}');
+      var wineId = await _firestore.collection('wines').doc(id).delete();
 
-        final uploadTask = photo.putData(file);
-        final snapshot = await uploadTask.whenComplete(() => {});
-        final photoUrl = await snapshot.ref.getDownloadURL();
+      var image = await FirebaseStorage.instance.refFromURL(photoUrl).delete();
 
-        final userID = await SecureStorage.getUID();
-
-        var wineId = await _firestore.collection('wines').add({
-          'denumire': denumire,
-          'year': year,
-          'tip': tip,
-          'culoare': culoare,
-          'pret': pret,
-          'sort': sort,
-          'photoUrl': photoUrl,
-        });
-
-        await _firestore.collection('users').doc(userID).update(
-          {
-            "collections": FieldValue.arrayUnion([wineId]),
-          },
-        );
-        res = "success";
-      }
+      res = "success";
     } catch (err) {
       print(err);
       res = err.toString();
@@ -59,7 +24,7 @@ class SaveWineMethods {
     return res;
   }
 
-  Future<String> SaveWineToFavourites({
+  Future<String> DeleteWineFromCollection({
     required String id,
   }) async {
     String res = "Some error occurred";
@@ -67,11 +32,13 @@ class SaveWineMethods {
       if (id.isNotEmpty) {
         final userID = await SecureStorage.getUID();
 
-        var wineId = await _firestore.doc(id).get();
+        var wineId = await _firestore.collection('wines').doc(id);
+
+        print('ID: ${wineId}');
 
         await _firestore.collection('users').doc(userID).update(
           {
-            "likes": FieldValue.arrayUnion([wineId.reference]),
+            "collections": FieldValue.arrayRemove([wineId]),
           },
         );
         res = "success";
