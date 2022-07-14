@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
+import 'package:wine_rec/ui/screens/login_screen/signup_second_screen.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../../firebase/auth_methods.dart';
@@ -178,10 +179,31 @@ class _SignupScreenState extends State<SignupScreen> {
                           overlayColor:
                               MaterialStateProperty.all(Colors.transparent),
                         ),
-                        child: const Text(
-                          "Creaza cont",
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              "Pasul urmator",
+                            ),
+                            SizedBox(
+                              width: size.width / 8,
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 14,
+                            )
+                          ],
                         ),
-                        onPressed: signUpUser,
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const SignupSecondScreen();
+                              },
+                            ),
+                          )
+                        },
                       ),
                     ),
                     const SizedBox(
