@@ -6,8 +6,7 @@ import 'package:wine_rec/utils/Models/wineApiModel.dart';
 class ApiService {
   var client = http.Client();
 
-  Future<ExploreVintage> getWines(
-      String searchType, String searchParams) async {
+  Future<ExploreVintage> getWines(String searchType, var searchParams) async {
     // var response = await client.get(
     //   Uri.parse('https://mocki.io/v1/8404b7e7-5147-4646-98ed-017ad785c1c8'),
     // );
@@ -24,8 +23,16 @@ class ApiService {
       url =
           'https://www.vivino.com/api/explore/explore?country_codes[]=ro&page=1&price_range_max=50&order_by=ratings_average&grape_filter=any&currency_code=USD&per_page=50&food_ids[]=$searchParams&country_codes[]=md';
     } else if (searchType == 'sort') {
-      url =
-          'https://www.vivino.com/api/explore/explore?country_codes[]=ro&page=1&price_range_max=50&order_by=ratings_average&grape_filter=any&currency_code=USD&per_page=50&grape_ids[]=$searchParams&country_codes[]=md';
+      if (searchParams.runtimeType == String) {
+        url =
+            'https://www.vivino.com/api/explore/explore?country_codes[]=ro&page=1&price_range_max=50&order_by=ratings_average&grape_filter=any&currency_code=USD&per_page=50&grape_ids[]=$searchParams&country_codes[]=md';
+      } else {
+        url =
+            'https://www.vivino.com/api/explore/explore?country_codes[]=ro&page=1&price_range_max=50&order_by=ratings_average&grape_filter=any&currency_code=USD&per_page=50&country_codes[]=md';
+        for (var i = 0; i < searchParams.length; i++) {
+          url += '&grape_ids[]=${searchParams[i].toString()}';
+        }
+      }
     }
 
     var response = await client.get(Uri.parse(url), headers: {

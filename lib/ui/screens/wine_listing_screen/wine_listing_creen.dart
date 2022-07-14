@@ -11,12 +11,14 @@ class WineListingScreen extends StatefulWidget {
     Key? key,
     this.searchParam,
     this.searchType,
+    this.personalizedList,
     required this.title,
   }) : super(key: key);
 
   final String? searchType;
   final String? searchParam;
   final String title;
+  final List? personalizedList;
 
   @override
   State<WineListingScreen> createState() => _WineListingScreenState();
@@ -31,8 +33,11 @@ class _WineListingScreenState extends State<WineListingScreen> {
       _isLoading = true;
     });
 
-    var Vintages =
-        await ApiService().getWines(widget.searchType!, widget.searchParam!);
+    var Vintages = await ApiService().getWines(
+        widget.searchType!,
+        widget.searchParam != null
+            ? widget.searchParam!
+            : widget.personalizedList);
     print(Vintages.toJson());
 
     setState(() {

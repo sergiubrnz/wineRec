@@ -299,7 +299,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: size.width * 0.6,
                 child: FloatingActionButton.extended(
                   backgroundColor: kPrimaryColor,
-                  onPressed: () => {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return WineListingScreen(
+                            searchType: 'sort',
+                            //searchParam: lovedList[0].toString(),
+                            personalizedList: lovedList,
+                            title: 'Sugestii personalizate',
+                          );
+                        },
+                      ),
+                    );
+                  },
                   label: const Text(
                     'Sugestii personalizate',
                     style: TextStyle(
