@@ -17,8 +17,9 @@ class AuthMethods {
     required String username,
     required String surname,
     required Uint8List file,
+    required List wineSorts,
   }) async {
-    String res = "Some error occurred";
+    String res = "A avut loc o eroare. Te rog incearca mai tarziu!";
     try {
       if (email.isNotEmpty ||
               password.isNotEmpty ||
@@ -45,9 +46,19 @@ class AuthMethods {
           'collections': [],
           'likes': [],
           'photoUrl': photoUrl,
+          'lovedSorts': [],
         });
+        print(wineSorts);
+
+        await _firestore.collection('users').doc(cred.user!.uid).update(
+          {
+            "lovedSorts": FieldValue.arrayUnion(wineSorts),
+          },
+        );
 
         res = "success";
+      } else {
+        res = "Te rugam sa completezi toate campurile!";
       }
     } catch (err) {
       print(err);

@@ -8,7 +8,6 @@ import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
 import 'package:wine_rec/ui/screens/login_screen/signup_second_screen.dart';
 import 'package:wine_rec/utils/colours.dart';
 
-import '../../../firebase/auth_methods.dart';
 import '../../../utils/pick_image.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -50,33 +49,6 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _surnameController.dispose();
     _usernameController.dispose();
-  }
-
-  void signUpUser() async {
-    setState(() {
-      _isLoading = true;
-    });
-    String res = await AuthMethods().signUpUser(
-      email: _emailController.text,
-      password: _passwordController.text,
-      username: _usernameController.text,
-      surname: _surnameController.text,
-      file: _image!,
-    );
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(res),
-      ),
-    );
-
-    if (res == 'success') {
-      Navigator.pop(context);
-    }
   }
 
   @override
@@ -195,14 +167,35 @@ class _SignupScreenState extends State<SignupScreen> {
                           ],
                         ),
                         onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const SignupSecondScreen();
-                              },
-                            ),
-                          )
+                          if (_passwordController.text != "" &&
+                              _surnameController.text != "" &&
+                              _usernameController.text != "" &&
+                              _emailController.text != "")
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return SignupSecondScreen(
+                                      email: _emailController.text,
+                                      username: _usernameController.text,
+                                      surname: _surnameController.text,
+                                      password: _passwordController.text,
+                                      file: _image,
+                                    );
+                                  },
+                                ),
+                              )
+                            }
+                          else
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Te rugam sa completezi toate datele'),
+                                ),
+                              ),
+                            }
                         },
                       ),
                     ),
