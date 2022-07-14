@@ -37,11 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordController.text,
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(res),
-      ),
-    );
     setState(() {
       _isLoading = false;
     });
@@ -54,6 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) {
             return BottomNavigator();
           },
+        ),
+      );
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(res),
         ),
       );
     }
