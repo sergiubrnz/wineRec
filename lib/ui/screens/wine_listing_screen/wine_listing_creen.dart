@@ -63,7 +63,10 @@ class _WineListingScreenState extends State<WineListingScreen> {
         backgroundColor: Colors.white,
         foregroundColor: kPrimaryColor,
         elevation: 0,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(fontSize: 24),
+        ),
       ),
       body: Stack(children: [
         Container(

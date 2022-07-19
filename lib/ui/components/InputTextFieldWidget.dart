@@ -53,6 +53,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
           enabled: widget.isEnabled,
           cursorColor: kPrimaryColor,
           keyboardType: widget.textInputType,
+          style: TextStyle(fontSize: 18),
           decoration: InputDecoration(
             icon: Icon(
               widget.icon,

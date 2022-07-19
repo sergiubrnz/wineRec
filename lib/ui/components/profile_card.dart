@@ -40,10 +40,10 @@ class ProfileCard extends StatelessWidget {
                   width: size.width * 0.9,
                   height: size.height * 0.6,
                   child: Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                       left: 10,
                       right: 10,
-                      top: 80,
+                      top: size.width * 0.2,
                     ),
                     child: Container(
                       color: Colors.white,
@@ -58,7 +58,7 @@ class ProfileCard extends StatelessWidget {
                             Text(
                               name!,
                               style: const TextStyle(
-                                fontSize: 28,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: kPrimaryColor,
                                 fontFamily: 'AdobeGaramond',
@@ -103,8 +103,13 @@ class ProfileCard extends StatelessWidget {
                                   return SettingsWidgetCard(
                                     text: 'Colectia mea ',
                                     rightIcon: IconButton(
-                                      icon: Text(
-                                          state.collection.length.toString()),
+                                      icon: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          state.collection.length.toString(),
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                      ),
                                       onPressed: () => {},
                                     ),
                                   );
@@ -112,7 +117,13 @@ class ProfileCard extends StatelessWidget {
                                   return SettingsWidgetCard(
                                     text: 'Colectia mea ',
                                     rightIcon: IconButton(
-                                      icon: const Text('0'),
+                                      icon: const FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          '0',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
                                       onPressed: () => {},
                                     ),
                                   );
@@ -129,7 +140,13 @@ class ProfileCard extends StatelessWidget {
                                   return SettingsWidgetCard(
                                     text: 'Aprecierile mele ',
                                     rightIcon: IconButton(
-                                      icon: Text(state.likes.length.toString()),
+                                      icon: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          state.likes.length.toString(),
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                      ),
                                       onPressed: () => {},
                                     ),
                                   );
@@ -137,7 +154,13 @@ class ProfileCard extends StatelessWidget {
                                   return SettingsWidgetCard(
                                     text: 'Aprecierile mele ',
                                     rightIcon: IconButton(
-                                      icon: const Text('0'),
+                                      icon: const FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          '0',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
                                       onPressed: () => {},
                                     ),
                                   );
@@ -173,8 +196,12 @@ class ProfileCard extends StatelessWidget {
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),
-                child: const Text(
-                  "Delogare",
+                child: const FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Delogare",
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
                 onPressed: () {
                   logoutUser();

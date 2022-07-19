@@ -9,8 +9,9 @@ class YearCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: 170,
+      width: size.width * 0.45,
       height: 30,
       child: Card(
         elevation: 2,
@@ -18,7 +19,10 @@ class YearCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(year),
+            Text(
+              year,
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),

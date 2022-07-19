@@ -111,136 +111,148 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         foregroundColor: kPrimaryColor,
         elevation: 0,
-        title: Text("Contul meu"),
+        title: Text(
+          "Contul meu",
+          style: TextStyle(fontSize: 24),
+        ),
       ),
       body: Stack(
         children: [
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.1,
-                    ),
-                    Stack(
-                      children: [
-                        firebaseImage != null
-                            ? CircleAvatar(
-                                radius: 64,
-                                backgroundImage: NetworkImage(firebaseImage!),
-                              )
-                            : _image != null
-                                ? CircleAvatar(
-                                    radius: 64,
-                                    backgroundImage: MemoryImage(_image!),
-                                  )
-                                : const CircleAvatar(
-                                    backgroundColor: Colors.grey,
-                                    radius: 64,
-                                    backgroundImage:
-                                        AssetImage('assets/logo.png'),
-                                  ),
-                        Positioned(
-                          bottom: -10,
-                          left: 80,
-                          child: IconButton(
-                            onPressed: () {
-                              selectImage();
-                            },
-                            icon: const Icon(Icons.add_a_photo),
+          Center(
+            child: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          firebaseImage != null
+                              ? CircleAvatar(
+                                  radius: 64,
+                                  backgroundImage: NetworkImage(firebaseImage!),
+                                )
+                              : _image != null
+                                  ? CircleAvatar(
+                                      radius: 64,
+                                      backgroundImage: MemoryImage(_image!),
+                                    )
+                                  : const CircleAvatar(
+                                      backgroundColor: Colors.grey,
+                                      radius: 64,
+                                      backgroundImage:
+                                          AssetImage('assets/logo.png'),
+                                    ),
+                          Positioned(
+                            bottom: -10,
+                            left: 80,
+                            child: IconButton(
+                              onPressed: () {
+                                selectImage();
+                              },
+                              icon: const Icon(Icons.add_a_photo),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    InputTextFieldWidget(
-                      hintText: 'Nume',
-                      textInputType: TextInputType.text,
-                      icon: Icons.person,
-                      textEditingController: _usernameController,
-                      isPass: false,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    InputTextFieldWidget(
-                      hintText: 'Prenume',
-                      textInputType: TextInputType.text,
-                      textEditingController: _surnameController,
-                      icon: Icons.person,
-                      isPass: false,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    InputTextFieldWidget(
-                      hintText: 'Email',
-                      textInputType: TextInputType.emailAddress,
-                      textEditingController: _emailController,
-                      isEnabled: false,
-                      icon: Icons.person,
-                      isPass: false,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // button login
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.0))),
-                          backgroundColor:
-                              MaterialStateProperty.all(kPrimaryColor),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        child: const Text(
-                          "Salveaza modificarile",
-                        ),
-                        onPressed: () => {
-                          updateUserInfo(),
-                        },
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.0))),
-                          backgroundColor:
-                              MaterialStateProperty.all(kPrimaryColor),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        child: const Text(
-                          "Anuleaza",
-                        ),
-                        onPressed: () => {
-                          Navigator.pop(context),
-                        },
+                      const SizedBox(
+                        height: 30,
                       ),
-                    ),
-                    // Transitioning to signing up
-                  ],
+                      InputTextFieldWidget(
+                        hintText: 'Nume',
+                        textInputType: TextInputType.text,
+                        icon: Icons.person,
+                        textEditingController: _usernameController,
+                        isPass: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      InputTextFieldWidget(
+                        hintText: 'Prenume',
+                        textInputType: TextInputType.text,
+                        textEditingController: _surnameController,
+                        icon: Icons.person,
+                        isPass: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      InputTextFieldWidget(
+                        hintText: 'Email',
+                        textInputType: TextInputType.emailAddress,
+                        textEditingController: _emailController,
+                        isEnabled: false,
+                        icon: Icons.person,
+                        isPass: false,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.1,
+                      ),
+                      // button login
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: size.height * 0.05,
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0))),
+                            backgroundColor:
+                                MaterialStateProperty.all(kPrimaryColor),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                          ),
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Salveaza modificarile",
+                              style: TextStyle(fontSize: 22),
+                            ),
+                          ),
+                          onPressed: () => {
+                            updateUserInfo(),
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: size.height * 0.05,
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0))),
+                            backgroundColor:
+                                MaterialStateProperty.all(kPrimaryColor),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                          ),
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Anuleaza",
+                              style: TextStyle(fontSize: 24),
+                            ),
+                          ),
+                          onPressed: () => {
+                            Navigator.pop(context),
+                          },
+                        ),
+                      ),
+                      // Transitioning to signing up
+                    ],
+                  ),
                 ),
               ),
             ),

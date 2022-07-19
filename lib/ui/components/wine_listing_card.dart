@@ -59,6 +59,7 @@ class _WineListingCardState extends State<WineListingCard> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -127,7 +128,7 @@ class _WineListingCardState extends State<WineListingCard> {
                               ),
                               child: Image.network(
                                 'https:${widget.wine!.vintage.image.variations.medium_square}',
-                                height: 80,
+                                height: size.width * 0.3,
                               ),
                             ),
                           ),
@@ -135,7 +136,7 @@ class _WineListingCardState extends State<WineListingCard> {
                             opacity: _isLoading ? 1 : 0,
                             child: HeartAnimationWidget(
                               isAnimating: _isLoading,
-                              duration: Duration(milliseconds: 700),
+                              duration: const Duration(milliseconds: 700),
                               onEnd: () => {
                                 setState(() => {_isLoading = false})
                               },
@@ -153,14 +154,21 @@ class _WineListingCardState extends State<WineListingCard> {
                       ),
                     ),
                     Expanded(
-                      child: Text(
-                        widget.wine!.vintage.wine.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                          fontFamily: 'AdobeGaramond',
-                          fontWeight: FontWeight.bold,
+                      child: SizedBox(
+                        width: size.width * 0.3,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            widget.wine!.vintage.wine.name,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: const TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 24,
+                              fontFamily: 'AdobeGaramond',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -172,16 +180,39 @@ class _WineListingCardState extends State<WineListingCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(widget.wine!.vintage.year.toString()),
+                            SizedBox(
+                              width: size.width * 0.1,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  widget.wine!.vintage.year.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
                             likedWine
-                                ? const Icon(
-                                    Icons.favorite,
-                                    color: kPrimaryColor,
-                                    size: 18,
+                                ? const Center(
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: kPrimaryColor,
+                                      size: 18,
+                                    ),
                                   )
                                 : Container(),
-                            Text(
-                                '${widget.wine!.price.amount.toStringAsFixed(2)} \$'),
+                            SizedBox(
+                              width: size.width * 0.15,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${widget.wine!.price.amount.toStringAsFixed(2)} \$',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

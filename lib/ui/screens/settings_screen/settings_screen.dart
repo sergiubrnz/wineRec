@@ -56,7 +56,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         foregroundColor: kPrimaryColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: Text("Setari"),
+        title: const Center(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              "Setari",
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
+        ),
       ),
       body: Stack(children: [
         ProfileCard(

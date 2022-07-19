@@ -88,7 +88,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: Text(
                                 'Salut, $nume!',
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 24,
                                   color: kPrimaryColor,
                                 ),
                               ),
@@ -99,7 +99,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 'Descopera magia vinului',
                                 style: TextStyle(
                                   fontFamily: 'AdobeGaramond',
-                                  fontSize: 18,
+                                  fontSize: 24,
                                   fontStyle: FontStyle.italic,
                                   color: kPrimaryColor,
                                 ),
@@ -121,7 +121,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Cautare dupa tip:',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
@@ -166,7 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Cautare dupa struguri:',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
@@ -211,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Pairing mancare:',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
@@ -256,7 +256,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Cautare dupa an:',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     color: Colors.black,
                   ),
                 ),

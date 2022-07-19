@@ -113,7 +113,12 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
           backgroundColor: Colors.white,
           foregroundColor: kPrimaryColor,
           elevation: 0,
-          title: const Text("Despre vin"),
+          title: const Text(
+            "Despre vin",
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
           actions: [
             widget.wine!.id!.isNotEmpty
                 ? BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
@@ -135,7 +140,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                       ;
                       if (likedWine) {
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: IconButton(
                             onPressed: () =>
                                 {deleteWineFromLikes(!collectionWine)},
@@ -144,7 +149,7 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                         );
                       } else {
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: IconButton(
                             onPressed: () => {
                               if (!likedWine || collectionWine)
@@ -197,22 +202,34 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        widget.wine!.denumire!,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                            color: kPrimaryColor,
-                                            fontFamily: 'AdobeGaramond'),
+                                      SizedBox(
+                                        width: size.width * 0.8,
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            widget.wine!.denumire!,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 30,
+                                                color: kPrimaryColor,
+                                                fontFamily: 'AdobeGaramond'),
+                                          ),
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 15),
-                                        child: Text(
-                                          ' ${widget.wine!.sort} - ${widget.wine!.year}',
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black38,
+                                        child: SizedBox(
+                                          width: size.width * 0.6,
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              ' ${widget.wine!.sort} - ${widget.wine!.year}',
+                                              style: const TextStyle(
+                                                fontSize: 22,
+                                                color: Colors.black38,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -229,11 +246,14 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                       ),
                                     ),
                                   ),
-                                  Text(
-                                    '${widget.wine!.culoare} - ${widget.wine!.tip}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: kPrimaryColor,
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      '${widget.wine!.culoare} - ${widget.wine!.tip}',
+                                      style: const TextStyle(
+                                        fontSize: 22,
+                                        color: kPrimaryColor,
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -245,18 +265,24 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          widget.wine!.year.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: kPrimaryColor,
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            widget.wine!.year.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: kPrimaryColor,
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          '${widget.wine!.pret!.toStringAsFixed(2)} \$',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: kPrimaryColor,
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            '${widget.wine!.pret!.toStringAsFixed(2)} \$',
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: kPrimaryColor,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -298,8 +324,14 @@ class _WineDetailsScreenState extends State<WineDetailsScreen> {
                                     overlayColor: MaterialStateProperty.all(
                                         Colors.transparent),
                                   ),
-                                  child: const Text(
-                                    "Sterge din colectia mea",
+                                  child: const FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "Sterge din colectia mea",
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                      ),
+                                    ),
                                   ),
                                   onPressed: () => {
                                     deleteWineFromCollection(!likedItem),

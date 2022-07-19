@@ -25,8 +25,9 @@ class GrapesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: 80,
+      width: size.width * 0.215,
       height: 100,
       child: Card(
         elevation: 2,
@@ -57,10 +58,13 @@ class GrapesCard extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              denumire,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13),
+            FittedBox(
+              fit: BoxFit.cover,
+              child: Text(
+                denumire,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ],
         ),

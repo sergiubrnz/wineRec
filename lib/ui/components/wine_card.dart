@@ -45,6 +45,7 @@ class _WineCardState extends State<WineCard> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return BlocConsumer<FirebaseListsBloc, FirebaseListsState>(
       listener: (context, state) {
         if (state is ListsLoaded) {
@@ -100,7 +101,7 @@ class _WineCardState extends State<WineCard> {
                               ),
                               child: Image.network(
                                 widget.wine!.photoUrl!,
-                                height: 80,
+                                height: size.width * 0.3,
                               ),
                             ),
                           ),
@@ -126,14 +127,17 @@ class _WineCardState extends State<WineCard> {
                       ),
                     ),
                     Expanded(
-                      child: Text(
-                        widget.wine!.denumire!,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                          fontFamily: 'AdobeGaramond',
-                          fontWeight: FontWeight.bold,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          widget.wine!.denumire!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: kPrimaryColor,
+                            fontSize: 24,
+                            fontFamily: 'AdobeGaramond',
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -145,7 +149,18 @@ class _WineCardState extends State<WineCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(widget.wine!.year.toString()),
+                            SizedBox(
+                              width: size.width * 0.1,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  widget.wine!.year.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
                             likedWine
                                 ? const Icon(
                                     Icons.favorite,
@@ -153,7 +168,18 @@ class _WineCardState extends State<WineCard> {
                                     size: 18,
                                   )
                                 : Container(),
-                            Text('${widget.wine!.pret?.toStringAsFixed(2)} \$'),
+                            SizedBox(
+                              width: size.width * 0.15,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${widget.wine!.pret?.toStringAsFixed(2)} \$',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

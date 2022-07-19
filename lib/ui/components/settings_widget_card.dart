@@ -47,6 +47,7 @@ class SettingsWidgetCard extends StatelessWidget {
                       flex: 4,
                       child: Text(
                         text!,
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                     Expanded(

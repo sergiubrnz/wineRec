@@ -48,7 +48,10 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
         foregroundColor: kPrimaryColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text("Vinurile mele"),
+        title: const Text(
+          "Vinurile mele",
+          style: TextStyle(fontSize: 24),
+        ),
       ),
       floatingActionButton: labelIndex == 0
           ? FloatingActionButton(
@@ -80,6 +83,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
               ],
               initialLabelIndex: labelIndex,
               totalSwitches: 2,
+              fontSize: 18,
               labels: const ['Colecția mea', 'Aprecierile mele'],
               radiusStyle: true,
               onToggle: (index) async {
@@ -151,13 +155,13 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                                 children: [
                                   Padding(
                                     padding:
-                                        EdgeInsets.only(top: size.height * 0.3),
+                                        EdgeInsets.only(top: size.height * 0),
                                     child: (const Center(
                                       child: Text(
                                         'Nu aveti inregistrari pentru moment',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 20,
                                             fontFamily: 'Roboto',
                                             color: kPrimaryColor),
                                       ),
@@ -177,7 +181,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                                       'Nu am putut incarca datele dumneavoastra',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 20,
                                           fontFamily: 'Roboto',
                                           color: kPrimaryColor),
                                     ),
@@ -208,13 +212,19 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                         alignment: Alignment.bottomLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Text(
-                            'Pretul estimat al colectiei: ${totalPrice.toStringAsFixed(2)} \$',
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'AdobeGaramond',
-                                color: kPrimaryColor),
-                            textAlign: TextAlign.start,
+                          child: SizedBox(
+                            width: size.width * 0.7,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Pretul estimat al colectiei: ${totalPrice.toStringAsFixed(2)} \$',
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    fontFamily: 'AdobeGaramond',
+                                    color: kPrimaryColor),
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
                           ),
                         ),
                       );

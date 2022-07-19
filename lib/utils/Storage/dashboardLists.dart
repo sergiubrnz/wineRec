@@ -20,7 +20,7 @@ List<FoodModel> listaMancaruri = [
 
 List<GrapesModel> listaStruguri = [
   GrapesModel(color: 'red', name: "Merlot", key: '10'),
-  GrapesModel(color: 'red', name: "Cabernet Sauvignon", key: '2'),
+  GrapesModel(color: 'red', name: "Cabernet", key: '2'),
   GrapesModel(color: 'red', name: "Pinot Noir", key: '14'),
   GrapesModel(color: 'white', name: "Sauvignon", key: '17'),
   GrapesModel(color: 'white', name: "Pinot Gris", key: '13'),
