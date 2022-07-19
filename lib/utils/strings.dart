@@ -4,4 +4,4 @@ const kEmail = "EMAIL";
 const kUID = "UID";
 const kUserImage = "USER_IMAGE";
 const kSecondSignupHeader =
-    "Pentru a putea sa iti oferim recomandari personalizate, te rugam sa raspunzi la cateva intrebari";
+    "Pentru ati putea oferi recomandari personalizate, te rugam sa raspunzi la cateva intrebari";

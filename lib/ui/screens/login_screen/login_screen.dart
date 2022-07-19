@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       );
-    }else{
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(res),
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: InputTextFieldWidget(
                     icon: Icons.person,
-                    hintText: '',
+                    hintText: 'Email',
                     isPass: false,
                     textInputType: TextInputType.text,
                     textEditingController: _emailController,
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: InputTextFieldWidget(
                     icon: Icons.lock,
-                    hintText: '',
+                    hintText: 'Parola',
                     isPass: true,
                     textInputType: TextInputType.text,
                     textEditingController: _passwordController,

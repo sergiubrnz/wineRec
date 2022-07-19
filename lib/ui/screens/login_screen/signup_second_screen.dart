@@ -142,7 +142,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                     child: Text(
-                      "Ce fel de persoana esti?",
+                      "Ce tip de persoana esti?",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 20,
@@ -190,7 +190,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                     child: Text(
-                      "Cum preferi sa iai deciziile?",
+                      "Cum preferi sa iei deciziile?",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 20,
@@ -286,7 +286,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                     child: Text(
-                      "Cat de organizat esti?",
+                      "Ce te descrie mai bine?",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 20,
