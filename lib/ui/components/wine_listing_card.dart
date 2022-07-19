@@ -13,10 +13,12 @@ import '../screens/wine_details_screen/wine_details_screen.dart';
 
 class WineListingCard extends StatefulWidget {
   final Match? wine;
+  final String sort;
 
   const WineListingCard({
     Key? key,
     required this.wine,
+    required this.sort,
   }) : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class _WineListingCardState extends State<WineListingCard> {
               ? 'Alb'
               : (widget.wine!.vintage.wine.typeId == 4 ? 'Rose' : 'Spumant')),
       denumire: widget.wine!.vintage.wine.name,
-      sort: '',
+      sort: widget.sort,
       year: int.parse(widget.wine!.vintage.year),
       pret: widget.wine!.price.amount,
       photoUrl: 'https:${widget.wine!.vintage.image.variations.medium_square}',
@@ -75,7 +77,8 @@ class _WineListingCardState extends State<WineListingCard> {
                 {
                   existingItem = state.likes.any(
                     (likedWine) =>
-                        likedWine.denumire == widget.wine!.vintage.wine.name,
+                        likedWine.denumire == widget.wine!.vintage.wine.name &&
+                        likedWine.year == int.parse(widget.wine!.vintage.year),
                   ),
                   if (!existingItem) {addWine()},
                   print(existingItem),
@@ -100,7 +103,7 @@ class _WineListingCardState extends State<WineListingCard> {
                                     : 'Spumant')),
                         'https:${widget.wine!.vintage.image.variations.medium_square}',
                         widget.wine!.price.amount,
-                        widget.wine!.vintage.grapes ?? ' - ',
+                        widget.sort,
                         '',
                       ),
                     );

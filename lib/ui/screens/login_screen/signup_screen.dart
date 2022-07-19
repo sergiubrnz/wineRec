@@ -120,7 +120,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Email',
                       textInputType: TextInputType.emailAddress,
                       textEditingController: _emailController,
-                      icon: Icons.person,
+                      icon: Icons.mail,
                       isPass: false,
                     ),
                     const SizedBox(
@@ -130,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Parola',
                       textInputType: TextInputType.text,
                       textEditingController: _passwordController,
-                      icon: Icons.person,
+                      icon: Icons.lock,
                       isPass: true,
                     ),
                     const SizedBox(
@@ -167,10 +167,39 @@ class _SignupScreenState extends State<SignupScreen> {
                           ],
                         ),
                         onPressed: () => {
-                          if (_passwordController.text != "" &&
-                              _surnameController.text != "" &&
-                              _usernameController.text != "" &&
-                              _emailController.text != "")
+                          if (_passwordController.text.isEmpty &&
+                              _surnameController.text.isEmpty &&
+                              _usernameController.text.isEmpty &&
+                              _emailController.text.isEmpty)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Te rugam sa completezi toate datele'),
+                                ),
+                              ),
+                            }
+                          else if (_passwordController.text.length < 8)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Parola trebuie sa aiba cel putin 8 caractere'),
+                                ),
+                              ),
+                            }
+                          else if (!RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(_emailController.text))
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Formatul email-ului nu este valid'),
+                                ),
+                              ),
+                            }
+                          else
                             {
                               Navigator.push(
                                 context,
@@ -186,15 +215,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                   },
                                 ),
                               )
-                            }
-                          else
-                            {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'Te rugam sa completezi toate datele'),
-                                ),
-                              ),
                             }
                         },
                       ),

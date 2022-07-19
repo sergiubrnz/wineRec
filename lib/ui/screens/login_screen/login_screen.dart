@@ -29,13 +29,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
+    String res = "";
     setState(() {
       _isLoading = true;
     });
-    String res = await AuthMethods().loginUser(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailController.text);
+
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      res = "Va rugam sa introduceti email-ul si parola";
+    } else if (!emailValid) {
+      res = "Email-ul are formatul gresit";
+    } else if (_passwordController.text.length < 8) {
+      res = "Parola trebuie sa aiba cel putin 8 caractere";
+    } else {
+      res = await AuthMethods().loginUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    }
 
     setState(() {
       _isLoading = false;
@@ -54,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          duration: Duration(seconds: 1),
           content: Text(res),
         ),
       );

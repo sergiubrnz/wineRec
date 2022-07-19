@@ -45,6 +45,6 @@ class ApiService {
     if (response.statusCode == 200) {
       return ExploreVintage.fromJson(jsonDecode(response.body));
     }
-    throw Exception('{response.statusCode.toString()}');
+    throw Exception('${response.statusCode.toString()}');
   }
 }

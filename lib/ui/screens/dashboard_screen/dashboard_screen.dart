@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wine_rec/ui/components/food_card.dart';
 import 'package:wine_rec/ui/components/grapes_card.dart';
 import 'package:wine_rec/ui/components/wine_types_card.dart';
@@ -10,6 +11,7 @@ import 'package:wine_rec/utils/colours.dart';
 import '../../../firebase/user_methods.dart';
 import '../../../utils/Storage/dashboardLists.dart';
 import '../../../utils/Storage/user_preferences.dart';
+import '../../blocs/firebase_bloc/firebase_lists_bloc.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -23,6 +25,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   var lovedList = [];
   bool _isLoading = false;
 
+  int getLists(BuildContext context, String userId) {
+    final basketBloc = context.read<FirebaseListsBloc>();
+    basketBloc.add(GetFirebaseLists(userId));
+    return 1;
+  }
+
   void getData() async {
     setState(() {
       _isLoading = true;
@@ -32,6 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     var res = (await UserMethods().getUserInfo(
       uid: userID!,
     ));
+
+    await getLists(context, userID!);
 
     setState(() {
       nume = res!['prenume'];
