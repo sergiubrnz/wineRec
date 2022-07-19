@@ -78,7 +78,10 @@ class _WineListingScreenState extends State<WineListingScreen> {
                   itemBuilder: (context, index) {
                     return WineListingCard(
                       wine: wines[index],
-                      sort: widget.searchType == "sort" ? widget.title : '',
+                      sort: (widget.searchType == "sort" &&
+                              widget.searchParam.runtimeType == String)
+                          ? widget.title
+                          : '',
                     );
                   },
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
