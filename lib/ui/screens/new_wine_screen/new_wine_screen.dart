@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wine_rec/firebase/save_wine_methods.dart';
 import 'package:wine_rec/utils/colours.dart';
 import 'package:wine_rec/utils/constants.dart';
 
+import '../../../firebase/save_wine_methods.dart';
 import '../../../utils/Storage/user_preferences.dart';
 import '../../../utils/pick_image.dart';
 import '../../blocs/firebase_bloc/firebase_lists_bloc.dart';
@@ -60,18 +60,31 @@ class _NewWineScreenState extends State<NewWineScreen> {
   }
 
   void addWine() async {
+    String res = "";
     setState(() {
       _isLoading = true;
     });
-    String res = await SaveWineMethods().SaveWine(
-      denumire: _controllerDenumire.text,
-      culoare: ColorDropdownvalue,
-      pret: double.parse(_controllerPret.text),
-      sort: _controllerSort.text,
-      tip: TypeDropdownvalue,
-      year: int.parse(_controllerAn.text),
-      file: _image!,
-    );
+    if (_controllerDenumire.text.isEmpty) {
+      res = "Denumirea este obligatorie";
+    } else if (_controllerPret.text.isEmpty ||
+        !RegExp(r'^[0-9]+$').hasMatch(_controllerPret.text) ||
+        double.parse(_controllerPret.text) < 0) {
+      res = "Introduceti un pret valid";
+    } else if (_controllerAn.text.isEmpty ||
+        !RegExp(r'^[0-9]+$').hasMatch(_controllerAn.text) ||
+        double.parse(_controllerAn.text) > 2022) {
+      res = "Introduceti un an valid";
+    } else {
+      res = await SaveWineMethods().SaveWine(
+        denumire: _controllerDenumire.text,
+        culoare: ColorDropdownvalue,
+        pret: double.parse(_controllerPret.text),
+        sort: _controllerSort.text,
+        tip: TypeDropdownvalue,
+        year: int.parse(_controllerAn.text),
+        file: _image!,
+      );
+    }
 
     final basketBloc = context.read<FirebaseListsBloc>();
     final userID = await SecureStorage.getUID();
