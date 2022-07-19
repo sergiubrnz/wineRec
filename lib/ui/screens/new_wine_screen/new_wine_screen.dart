@@ -96,6 +96,7 @@ class _NewWineScreenState extends State<NewWineScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        duration: Duration(milliseconds: 500),
         content: Text(res),
       ),
     );
