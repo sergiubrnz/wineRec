@@ -49,5 +49,9 @@
     <string>Camera Usage</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Mic Usage</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

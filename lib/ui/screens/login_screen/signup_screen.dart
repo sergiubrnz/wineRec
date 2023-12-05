@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,7 +96,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Nume',
                         textInputType: TextInputType.text,
                         icon: Icons.person,
-                        textEditingController: _usernameController,
+                        controller: _usernameController,
                         isPass: false,
                       ),
                       const SizedBox(
@@ -108,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       InputTextFieldWidget(
                         hintText: 'Prenume',
                         textInputType: TextInputType.text,
-                        textEditingController: _surnameController,
+                        controller: _surnameController,
                         icon: Icons.person,
                         isPass: false,
                       ),
@@ -118,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       InputTextFieldWidget(
                         hintText: 'Email',
                         textInputType: TextInputType.emailAddress,
-                        textEditingController: _emailController,
+                        controller: _emailController,
                         icon: Icons.mail,
                         isPass: false,
                       ),
@@ -128,7 +125,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       InputTextFieldWidget(
                         hintText: 'Parola',
                         textInputType: TextInputType.text,
-                        textEditingController: _passwordController,
+                        controller: _passwordController,
                         icon: Icons.lock,
                         isPass: true,
                       ),

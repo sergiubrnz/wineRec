@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -166,14 +163,14 @@ class _NewWineScreenState extends State<NewWineScreen> {
                       hintText: 'Denumire',
                       textInputType: TextInputType.text,
                       icon: Icons.wine_bar_outlined,
-                      textEditingController: _controllerDenumire,
+                      controller: _controllerDenumire,
                       isPass: false,
                     ),
 
                     InputTextFieldWidget(
                       hintText: 'An producere',
                       textInputType: TextInputType.number,
-                      textEditingController: _controllerAn,
+                      controller: _controllerAn,
                       icon: Icons.calendar_today_outlined,
                       isPass: false,
                     ),
@@ -245,14 +242,14 @@ class _NewWineScreenState extends State<NewWineScreen> {
                     InputTextFieldWidget(
                       hintText: 'Sort',
                       textInputType: TextInputType.text,
-                      textEditingController: _controllerSort,
+                      controller: _controllerSort,
                       icon: Icons.wine_bar_sharp,
                       isPass: false,
                     ),
                     InputTextFieldWidget(
                       hintText: 'Pret',
                       textInputType: TextInputType.number,
-                      textEditingController: _controllerPret,
+                      controller: _controllerPret,
                       icon: Icons.attach_money,
                       isPass: false,
                     ),

@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wine_rec/utils/colours.dart';
 
-class InputTextFieldWidget extends StatefulWidget {
+class InputTextFieldWidget extends StatelessWidget {
   const InputTextFieldWidget({
     Key? key,
     required this.hintText,
     required this.textInputType,
     required this.icon,
     required this.isPass,
-    required this.textEditingController,
+    required this.controller,
     this.isEnabled = true,
   }) : super(key: key);
   final String hintText;
@@ -17,66 +16,76 @@ class InputTextFieldWidget extends StatefulWidget {
   final IconData icon;
   final bool isPass;
   final bool isEnabled;
-  final TextEditingController textEditingController;
-
-  @override
-  State<InputTextFieldWidget> createState() => _InputTextFieldWidgetState();
-}
-
-class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
-  late bool isVisible;
-
-  @override
-  void initState() {
-    isVisible = widget.isPass;
-    super.initState();
-  }
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: kPrimaryColor,
-          ),
-          color: kPrimaryLightColor,
-          borderRadius: BorderRadius.circular(29),
+    const primaryColor = kPrimaryColor;
+    const secondaryColor = kPrimaryColor;
+    const errorColor = Color(0xffEF4444);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          hintText,
+          style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              color: Colors.white.withOpacity(.9)),
         ),
-        child: TextField(
-          controller: widget.textEditingController,
-          obscureText: isVisible,
-          enabled: widget.isEnabled,
-          cursorColor: kPrimaryColor,
-          keyboardType: widget.textInputType,
-          style: TextStyle(fontSize: 18),
-          decoration: InputDecoration(
-            icon: Icon(
-              widget.icon,
-              color: kPrimaryColor,
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          height: 50,
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                offset: const Offset(12, 26),
+                blurRadius: 50,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.1)),
+          ]),
+          child: TextField(
+            controller: controller,
+            obscureText: isPass,
+            onChanged: (value) {
+              //Do something wi
+            },
+            keyboardType: textInputType,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              label: Text(hintText),
+              labelStyle: const TextStyle(color: primaryColor),
+              prefixIcon: Icon(
+                icon,
+                color: primaryColor,
+              ),
+              filled: true,
+              hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: secondaryColor, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: errorColor, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
             ),
-            hintText: widget.hintText,
-            border: InputBorder.none,
-            suffixIcon: widget.isPass
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isVisible = !isVisible;
-                      });
-                    },
-                    icon: Icon(
-                      isVisible ? Icons.visibility : Icons.visibility_off,
-                      color: kPrimaryColor,
-                    ),
-                  )
-                : null,
           ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
 import 'package:wine_rec/ui/navigation/bottom_navigator.dart';
@@ -106,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Email',
                           isPass: false,
                           textInputType: TextInputType.text,
-                          textEditingController: _emailController,
+                          controller: _emailController,
                         ),
                       ),
                       const SizedBox(
@@ -119,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Parola',
                           isPass: true,
                           textInputType: TextInputType.text,
-                          textEditingController: _passwordController,
+                          controller: _passwordController,
                         ),
                       ),
                       const SizedBox(
