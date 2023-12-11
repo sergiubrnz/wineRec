@@ -20,10 +20,6 @@ class InputTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = kPrimaryColor;
-    const secondaryColor = kPrimaryColor;
-    const errorColor = Color(0xffEF4444);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,31 +51,33 @@ class InputTextFieldWidget extends StatelessWidget {
             keyboardType: textInputType,
             style: const TextStyle(fontSize: 14, color: Colors.black),
             decoration: InputDecoration(
-              label: Text(hintText),
-              labelStyle: const TextStyle(color: primaryColor),
+              label: Text(
+                hintText,
+                style: const TextStyle(color: kPrimaryColor),
+              ),
               prefixIcon: Icon(
                 icon,
-                color: primaryColor,
+                color: kPrimaryColor,
               ),
-              filled: true,
+              filled: false,
               hintText: hintText,
               hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
               border: const OutlineInputBorder(
-                borderSide: BorderSide(color: primaryColor, width: 1.0),
+                borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: secondaryColor, width: 1.0),
+                borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: errorColor, width: 1.0),
+                borderSide: BorderSide(color: kErrorColor, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: primaryColor, width: 1.0),
+                borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
             ),

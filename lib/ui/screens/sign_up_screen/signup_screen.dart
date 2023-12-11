@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
-import 'package:wine_rec/ui/screens/login_screen/signup_second_screen.dart';
+import 'package:wine_rec/ui/screens/sign_up_screen/signup_second_screen.dart';
 import 'package:wine_rec/utils/colours.dart';
 
 import '../../../utils/pick_image.dart';

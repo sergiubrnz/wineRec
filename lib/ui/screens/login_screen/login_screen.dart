@@ -1,81 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wine_rec/ui/components/InputTextFieldWidget.dart';
-import 'package:wine_rec/ui/navigation/bottom_navigator.dart';
-import 'package:wine_rec/ui/screens/login_screen/signup_screen.dart';
-import 'package:wine_rec/utils/Storage/user_preferences.dart';
+import 'package:wine_rec/ui/screens/login_screen/login_controller.dart';
+import 'package:wine_rec/ui/screens/sign_up_screen/signup_screen.dart';
 
-import '../../../firebase/auth_methods.dart';
 import '../../../utils/colours.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false;
-  bool _permanentLogIn = false;
-
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-  }
-
-  void loginUser() async {
-    String res = "";
-    setState(() {
-      _isLoading = true;
-    });
-
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(_emailController.text);
-
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      res = "Va rugam sa introduceti email-ul si parola";
-    } else if (!emailValid) {
-      res = "Email-ul are formatul gresit";
-    } else if (_passwordController.text.length < 8) {
-      res = "Parola trebuie sa aiba cel putin 8 caractere";
-    } else {
-      res = await AuthMethods().loginUser(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (res == 'success') {
-      await SecureStorage.setKeepMeAuthenticated(_permanentLogIn);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return const BottomNavigator();
-          },
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(seconds: 1),
-          content: Text(res),
-        ),
-      );
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    LoginController _controller = Get.put(LoginController());
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Stack(
@@ -84,17 +20,17 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SafeArea(
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.95,
+                  height: Get.height * 0.95,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        height: Get.height * 0.05,
                       ),
                       Center(
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.35,
+                          height: Get.height * 0.35,
                           child: Image.asset('assets/logo.png'),
                         ),
                       ),
@@ -105,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Email',
                           isPass: false,
                           textInputType: TextInputType.text,
-                          controller: _emailController,
+                          controller: _controller.emailController,
                         ),
                       ),
                       const SizedBox(
@@ -118,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Parola',
                           isPass: true,
                           textInputType: TextInputType.text,
-                          controller: _passwordController,
+                          controller: _controller.passwordController,
                         ),
                       ),
                       const SizedBox(
@@ -131,11 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Checkbox(
                               activeColor: kPrimaryColor,
-                              value: _permanentLogIn,
+                              value: _controller.permanentLogIn.value,
                               onChanged: (bool? value) {
-                                setState(() {
-                                  _permanentLogIn = value!;
-                                });
+                                if (value != null) {
+                                  _controller.permanentLogIn.value = value;
+                                }
                               },
                             ),
                             const SizedBox(
@@ -153,12 +89,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.056),
+                      SizedBox(height: Get.height * 0.056),
                       Center(
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: Get.width * 0.6,
+                          height: Get.height * 0.05,
                           child: TextButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
@@ -180,18 +115,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             onPressed: () {
-                              loginUser();
+                              _controller.loginUser();
                             },
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                        height: Get.height * 0.01,
                       ),
                       Center(
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: Get.width * 0.6,
+                          height: Get.height * 0.05,
                           child: TextButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
@@ -231,10 +166,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          _isLoading
+          _controller.isLoading.value
               ? Container(
-                  height: size.height,
-                  width: size.width,
+                  height: Get.height,
+                  width: Get.width,
                   color: Colors.transparent,
                   child: const Center(
                     child: SizedBox(
